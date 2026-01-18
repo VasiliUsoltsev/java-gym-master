@@ -40,4 +40,15 @@ public class TimeOfDay implements Comparable<TimeOfDay> {
     public int getMinutes() {
         return minutes;
     }
+
+    @Override
+    public String toString() {
+        String tempMinutes = String.valueOf(minutes);
+
+        if (tempMinutes.length() == 1) {
+            return hours + ":0" + minutes;
+        } else {
+            return hours + ":" + minutes;
+        }
+    }
 }
