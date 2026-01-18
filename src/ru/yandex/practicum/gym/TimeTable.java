@@ -11,7 +11,7 @@ public class TimeTable {
     }
 
     // Добавление тренировки в расписание(требование к алгоритмической сложности нет)
-    public void addNewTrainingSession(TrainingSession trainingSession, DayOfWeek dayOfWeek, TimeOfDay timeOfDay ) {
+    public void addNewTrainingSession(TrainingSession trainingSession, DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
         Map<TimeOfDay, List<TrainingSession>> temp;
 
         // Проверяем, есть ли введенный день недели
@@ -58,7 +58,7 @@ public class TimeTable {
     // Требуемая алгоритмическая сложность O(log(n)) - достигнута HashMap и TreeMap
     public List<TrainingSession> getTrainingSessionsForDayAndTime(DayOfWeek dayOfWeek, TimeOfDay timeOfDay) {
         Map<TimeOfDay, List<TrainingSession>> temp = timeTable.get(dayOfWeek);
-        if (temp!= null) {
+        if (temp != null) {
             return temp.get(timeOfDay);
         }
         return null;
