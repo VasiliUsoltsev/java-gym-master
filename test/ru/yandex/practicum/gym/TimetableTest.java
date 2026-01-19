@@ -163,7 +163,7 @@ public class TimetableTest {
 
     @DisplayName(" Тест 11 - Проверить, правильно ли выводятся тренировки, если они проходят в одно и тоже время")
     @Test
-    void testGetTrainingSessionsForDayAndTime() {Вторая итерация финального задания 6 спринта. Исправлено -
+    void testGetTrainingSessionsForDayAndTime() {
         timetable.addNewTrainingSession(mondayChildTrainingSession,
                 DayOfWeek.MONDAY, new TimeOfDay(13, 0));
         timetable.addNewTrainingSession(thursdayChildTrainingSession,
