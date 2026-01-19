@@ -4,7 +4,7 @@ import java.util.*;
 
 public class TimeTable {
 
-    private Map<DayOfWeek, Map<TimeOfDay, List<TrainingSession>>> timeTable;
+    private final Map<DayOfWeek, Map<TimeOfDay, List<TrainingSession>>> timeTable;
 
     public TimeTable() {
         timeTable = new HashMap<>();

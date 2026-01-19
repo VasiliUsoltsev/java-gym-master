@@ -9,7 +9,23 @@ public class GymMaster {
 
     public static void main(String[] args) {
         GymMaster gym = new GymMaster();
-        gym.start();
+
+
+        Coach coach = new Coach("Васильев", "Николай", "Сергеевич");
+        Coach coach2 = new Coach("Усольцев", "Василий", "Николаевич");
+
+
+        Group groupChild = new Group("Акробатика для детей", Age.CHILD, 60);
+        TrainingSession mondayChildTrainingSession = new TrainingSession(groupChild, coach2);
+        TrainingSession thursdayChildTrainingSession = new TrainingSession(groupChild, coach);
+
+
+
+        timeTable.addNewTrainingSession(mondayChildTrainingSession,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        timeTable.addNewTrainingSession(thursdayChildTrainingSession,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        //gym.start();
     }
 
     public void start() {

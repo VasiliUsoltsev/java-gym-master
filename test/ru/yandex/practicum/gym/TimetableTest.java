@@ -1,6 +1,7 @@
 package ru.yandex.practicum.gym;
 
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import java.util.*;
 
@@ -20,7 +21,7 @@ public class TimetableTest {
     TrainingSession thursdayChildTrainingSession = new TrainingSession(groupChild, coach);
     TrainingSession saturdayChildTrainingSession = new TrainingSession(groupChild, coach3);
 
-    //Проверить, что за понедельник вернулось одно занятие
+    @DisplayName(" Тест 1 - Проверка вывода занятия за понедельник")
     @Test
     void testGetTrainingSessionsForDaySingleSessionTrue() {
         timetable.addNewTrainingSession(singleTrainingSession, DayOfWeek.MONDAY, new TimeOfDay(13, 0));
@@ -28,7 +29,7 @@ public class TimetableTest {
         Assertions.assertEquals(1, timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY).size());
     }
 
-    //Проверить, что за вторник не вернулось занятий
+    @DisplayName(" Тест 2 - Проверить, что за вторник не вернулось занятий")
     @Test
     void testGetTrainingSessionsForDaySingleSessionFalse() {
         timetable.addNewTrainingSession(singleTrainingSession, DayOfWeek.MONDAY, new TimeOfDay(13, 0));
@@ -36,7 +37,7 @@ public class TimetableTest {
         Assertions.assertNull(timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY));
     }
 
-    // Проверить, что за понедельник вернулось одно занятие
+    @DisplayName(" Тест 3 - Проверить, что за понедельник вернулось одно занятие")
     @Test
     void testGetTrainingSessionsForDayMultipleSessionsMondayReturn1() {
         timetable.addNewTrainingSession(thursdayAdultTrainingSession,
@@ -51,7 +52,7 @@ public class TimetableTest {
         Assertions.assertEquals(1, timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY).size());
     }
 
-    // Проверить, что за четверг вернулось два занятия в правильном порядке: сначала в 13:00, потом в 20:00
+    @DisplayName(" Тест 4 - Проверить, что за четверг вернулось два занятия в правильном порядке: сначала в 13:00, потом в 20:00")
     @Test
     void testGetTrainingSessionsForDayMultipleSessionsThursdayReturn2() {
         timetable.addNewTrainingSession(thursdayAdultTrainingSession,
@@ -80,7 +81,7 @@ public class TimetableTest {
         Assertions.assertEquals("20:00", time2.toString());
     }
 
-    // Проверить, что за вторник не вернулось занятий
+    @DisplayName(" Тест 5 - Проверить, что за вторник не вернулось занятий")
     @Test
     void testGetTrainingSessionsForDayMultipleSessionsTuesdayReturn0() {
         timetable.addNewTrainingSession(thursdayAdultTrainingSession,
@@ -97,7 +98,7 @@ public class TimetableTest {
         Assertions.assertNull(timetable.getTrainingSessionsForDay(DayOfWeek.TUESDAY));
     }
 
-    //Проверить, что за понедельник в 13:00 вернулось одно занятие
+    @DisplayName(" Тест 6 - Проверить, что за понедельник в 13:00 вернулось одно занятие")
     @Test
     void testGetTrainingSessionsForDayAndTimeMonday13Return1() {
         timetable.addNewTrainingSession(singleTrainingSession,
@@ -107,7 +108,7 @@ public class TimetableTest {
                 timetable.getTrainingSessionsForDayAndTime(DayOfWeek.MONDAY, new TimeOfDay(13, 0)).size());
     }
 
-    //Проверить, что за понедельник в 14:00 не вернулось занятий
+    @DisplayName(" Тест 7 - Проверить, что за понедельник в 14:00 не вернулось занятий")
     @Test
     void testGetTrainingSessionsForDayAndTimeMonday14Return0() {
         timetable.addNewTrainingSession(singleTrainingSession,
@@ -117,13 +118,13 @@ public class TimetableTest {
                 new TimeOfDay(14, 0)));
     }
 
-    // Проверить, что считается по кол-ву тренировок при пустом расписании
+    @DisplayName(" Тест 8 - Проверить, что считается по кол-ву тренировок при пустом расписании")
     @Test
     void testGetCountByCoachesEmpty() {
         Assertions.assertNull(timetable.getCountByCoaches());
     }
 
-    // Проверить, сколько выводится тренеров если внести в расписание 3, у 2 тренеров по 1 занятию, а у третьего 3
+    @DisplayName(" Тест 9 - Проверить, сколько выводится тренеров если внести в расписание 3, у 2 тренеров по 1 занятию, а у третьего 3")
     @Test
     void testGetCountByCoaches3_1_1_2() {
         timetable.addNewTrainingSession(thursdayAdultTrainingSession,
@@ -139,7 +140,7 @@ public class TimetableTest {
     }
 
 
-    // Проверить, выводится ли в первым, тренер с большим и с меньшим кол-вом тренировок
+    @DisplayName(" Тест 10 - Проверить, выводится ли в первым, тренер с большим и с меньшим кол-вом тренировок")
     @Test
     void testGetCountByCoachesMaxAndMin() {
         timetable.addNewTrainingSession(thursdayAdultTrainingSession,
@@ -160,29 +161,31 @@ public class TimetableTest {
         Assertions.assertEquals(1, min);
     }
 
+    @DisplayName(" Тест 11 - Проверить, правильно ли выводятся тренировки, если они проходят в одно и тоже время")
+    @Test
+    void testGetTrainingSessionsForDayAndTime() {
+        timetable.addNewTrainingSession(mondayChildTrainingSession,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
+        timetable.addNewTrainingSession(thursdayChildTrainingSession,
+                DayOfWeek.MONDAY, new TimeOfDay(13, 0));
 
+        Map<TimeOfDay, List<TrainingSession>> tempWeekDay = timetable.getTrainingSessionsForDay(DayOfWeek.MONDAY);
+        List<TrainingSession> tempTimeDay = tempWeekDay.get(new TimeOfDay(13, 0));
 
+        // Проверяем на кол-во занятий
+        Assertions.assertEquals(2, tempTimeDay.size());
 
+        //Проверяем на правильную последовательность
+        String time1,time2;
+        time1 = time2 = null;
+        for (TrainingSession tempTrainingSession: tempTimeDay) {
+            if (time1 == null) time1 = tempTrainingSession.getCoach().toString();
+            else time2 = tempTrainingSession.getCoach().toString();
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        Assertions.assertEquals("Усольцев Василий Николаевич", time1.toString());
+        Assertions.assertEquals("Васильев Николай Сергеевич", time2.toString());
+    }
 
 
 }
